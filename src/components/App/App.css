@@ -1,0 +1,13 @@
+.App {
+
+}
+
+.Block-message {
+    align-items: center;
+    display: flex;
+}
+
+.app-message-list {
+    margin-top: 1rem;
+    /*background-color: #ff2d2d;*/
+}
