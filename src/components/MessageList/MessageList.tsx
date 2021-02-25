@@ -4,9 +4,10 @@ import './MessageList.css'
 
 type MessageListProps = {
   messages: IMessage[],
+  removeMessage(id: number): void
 }
 
-const MessageList: React.FC<MessageListProps> = ({messages}) => {
+const MessageList: React.FC<MessageListProps> = ({messages, removeMessage}) => {
   return (
     <div >
       {messages.map(message => {
@@ -16,7 +17,7 @@ const MessageList: React.FC<MessageListProps> = ({messages}) => {
               <p className="Name-user">{message.name}</p>
               <span>{message.messageText}</span>
             </div>
-            <i className="material-icons prefix">delete</i>
+            <i className="material-icons prefix" onClick={() => removeMessage(message.id)}>delete</i>
           </div>
         )
       })}

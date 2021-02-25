@@ -20,6 +20,10 @@ const App: React.FC = () => {
     }
   }
 
+  const removeMessage = (id: number) => {
+    setMessages(prev => prev.filter(message => message.id !== id))
+  }
+
   return (
     <>
       <NavBar/>
@@ -27,7 +31,7 @@ const App: React.FC = () => {
         <div className="row">
           <div className="col s3">Список чатиков</div>
           <div className="col s9 app-message-list">
-            <MessageList messages={messages}/>
+            <MessageList messages={messages} removeMessage={removeMessage}/>
             <InputMessage enterMessage={enterMessage}/>
           </div>
         </div>
