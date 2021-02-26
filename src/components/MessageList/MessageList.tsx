@@ -13,26 +13,31 @@ const MessageList: React.FC<MessageListProps> = ({messages, removeMessage, editM
   const listRef = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    console.log(listRef.current);
     listRef?.current?.scroll(0, listRef.current.scrollHeight);
   }, [messages]);
 
   return (
     <div ref={listRef} className="Message-list">
-      {messages.map(message => {
-        return(
-          <div className="message">
-            <div>
-              <p className="Name-user">{message.name}</p>
-              <span>{message.messageText}</span>
+      {messages.length === 0 ? (<p className="center">
+          Сообщений нет
+        </p>) :
+        messages.map(message => {
+          return (
+            <div className="message">
+              <div>
+                <p className="Name-user">{message.name}</p>
+                <span>{message.messageText}</span>
+              </div>
+              {message.type === 'my' ? (
+                <div className="Message-list-icons">
+                  <i className="material-icons prefix cursor-pointer" onClick={() => editMessage(message.id)}>edit</i>
+                  <i className="material-icons prefix cursor-pointer"
+                     onClick={() => removeMessage(message.id)}>delete</i>
+                </div>
+              ) : null}
             </div>
-            <div className="Message-list-icons">
-              <i className="material-icons prefix cursor-pointer" onClick={() => editMessage(message.id)}>edit</i>
-              <i className="material-icons prefix cursor-pointer" onClick={() => removeMessage(message.id)}>delete</i>
-            </div>
-          </div>
-        )
-      })}
+          )
+        })}
     </div>
   )
 }

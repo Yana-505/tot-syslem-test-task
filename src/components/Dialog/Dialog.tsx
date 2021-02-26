@@ -6,21 +6,32 @@ import InputMessage from "../InputMessage/InputMessage";
 
 type DialogProps = {
   nameUser: string,
+  dialogId: string,
 }
 
-const Dialog: React.FC<DialogProps> = (props) => {
-  const [messages, setMessages] = useState<IMessage[]>([])
-  const [messageText, setMessageText] = useState<string>('')
-  const [inEdit, setEdit] = useState<number>(0)
+const Dialog: React.FC<DialogProps> = ({ nameUser, dialogId }) => {
+  const [messages, setMessages] = useState<IMessage[]>(() => {
+    // read
+    const dialogIdSaved = localStorage.getItem(dialogId);
+    if (dialogIdSaved != null) {
+      try {
+        return JSON.parse(dialogIdSaved);
+      } catch (e) {
+        localStorage.removeItem(dialogId);
+        return require('./messages.json').messages[dialogId] ?? [];
+      }
+    } else {
+      return require('./messages.json').messages[dialogId] ?? [];
+    }
+  });
+
+  const [messageText, setMessageText] = useState<string>('');
+  const [inEdit, setEdit] = useState<number>(0);
 
   useEffect(() => {
-    const savedMessages = JSON.parse(localStorage.getItem('messages') || '[]') as IMessage[];
-    setMessages(savedMessages);
-  }, [])
-
-  useEffect(() => {
-    localStorage.setItem('messages', JSON.stringify(messages));
-  }, [messages])
+    // write
+    localStorage.setItem(dialogId, JSON.stringify(messages));
+  }, [messages, dialogId]);
 
   const enterMessage = (message: string) => {
     const newMessage = message.replace(/\s+/g, ' ').trim();
@@ -32,7 +43,8 @@ const Dialog: React.FC<DialogProps> = (props) => {
       if (editingMessage.messageText === messageText) return;
       const newMessage: IMessage = {
         messageText: messageText,
-        name: props.nameUser,
+        name: nameUser,
+        type: 'my',
         id: inEdit
       }
       const newMessages = [...messages];
@@ -42,7 +54,8 @@ const Dialog: React.FC<DialogProps> = (props) => {
     } else {
       const newMessage: IMessage = {
         messageText: message,
-        name: props.nameUser,
+        name: nameUser,
+        type: 'my',
         id: Date.now()
       }
       setMessages(prev => [...prev, newMessage]);

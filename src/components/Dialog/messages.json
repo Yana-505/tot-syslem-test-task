@@ -1,0 +1,32 @@
+{
+  "messages": {
+    "flood": [
+      {
+        "messageText": "Привет",
+        "name": "Ольга",
+        "type": "interlocutor",
+        "id": 1
+      },
+      {
+        "messageText": "Сегодня пойдем вечером на тот фильм?",
+        "name": "Ольга",
+        "type": "interlocutor",
+        "id": 2
+      }
+    ],
+    "work": [
+      {
+        "messageText": "Привет",
+        "name": "Артем",
+        "type": "interlocutor",
+        "id": 1
+      },
+      {
+        "messageText": "Я хотел уточнить, какие задачи выполнять дальше",
+        "name": "Артем  ",
+        "type": "interlocutor",
+        "id": 2
+      }
+    ]
+  }
+}
