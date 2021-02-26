@@ -1,13 +1,18 @@
-.App {
-
+.App-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.Block-message {
-    align-items: center;
-    display: flex;
+.App-content {
+    flex-grow: 1;
+    min-height: 0;
 }
 
 .app-message-list {
+    height: 100%;
     margin-top: 1rem;
-    /*background-color: #ff2d2d;*/
+    display: flex;
+    flex-direction: column;
 }
+

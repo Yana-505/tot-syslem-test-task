@@ -12,3 +12,18 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
+.Message-list {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: auto;
+}
+
+.Message-list > :first-child {
+    margin-top: auto !important;
+}
+
+.Message-list-icons {
+    flex-shrink: 0;
+}

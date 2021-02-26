@@ -1,3 +1,7 @@
 #input-message {
     width: 95%;
 }
+
+.Input-message-container {
+    flex-grow: 0;
+}
