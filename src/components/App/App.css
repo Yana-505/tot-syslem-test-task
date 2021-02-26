@@ -9,10 +9,15 @@
     min-height: 0;
 }
 
-.app-message-list {
+.App-message-list {
     height: 100%;
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
+}
+
+.App-authorization {
+    width: 50%;
+    margin: auto;
 }
 

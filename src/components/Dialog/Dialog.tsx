@@ -1,13 +1,26 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './Dialog.css'
 import {IMessage} from "../../interfaces";
 import MessageList from "../MessageList/MessageList";
 import InputMessage from "../InputMessage/InputMessage";
 
-const Dialog: React.FC = () => {
+type DialogProps = {
+  nameUser: string,
+}
+
+const Dialog: React.FC<DialogProps> = (props) => {
   const [messages, setMessages] = useState<IMessage[]>([])
   const [messageText, setMessageText] = useState<string>('')
   const [inEdit, setEdit] = useState<number>(0)
+
+  useEffect(() => {
+    const savedMessages = JSON.parse(localStorage.getItem('messages') || '[]') as IMessage[];
+    setMessages(savedMessages);
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('messages', JSON.stringify(messages));
+  }, [messages])
 
   const enterMessage = (message: string) => {
     const newMessage = message.replace(/\s+/g, ' ').trim();
@@ -19,7 +32,7 @@ const Dialog: React.FC = () => {
       if (editingMessage.messageText === messageText) return;
       const newMessage: IMessage = {
         messageText: messageText,
-        name: 'User',
+        name: props.nameUser,
         id: inEdit
       }
       const newMessages = [...messages];
@@ -29,7 +42,7 @@ const Dialog: React.FC = () => {
     } else {
       const newMessage: IMessage = {
         messageText: message,
-        name: 'User',
+        name: props.nameUser,
         id: Date.now()
       }
       setMessages(prev => [...prev, newMessage]);
